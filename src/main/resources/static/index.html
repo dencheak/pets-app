@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pets-site</title>
+	<link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="style.css"	>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<div class="header">
+		<div class="head-start">Pets-app</div>
+		<div class="head-end">
+			<div><img src="user-icon_.png" class="user-image"></div>
+			
+			<div class="user-name elem">name</div>
+		</div>
+		
+	</div>
+	<div>
+	<button id="openModal" >Create post</button>
+		
+		<input id="page-value" type="number" placeholder= "Page">
+		<button id="get-page-button">Get page</button>
+	</div>
+	<div class ="container">
+		<div class="product">
+			<div class="product-image polaroid"  >
+				<img src="https://mirpozitiva.ru/uploads/posts/2016-11/medium/1478533814_lapki-kverhu.jpg" alt="">
+				<h3 class="product-name">
+					Cat
+				</h3>
+			</div>
+			<div class="product-description">
+				<div class="product-kind"></div>
+				<div class="product-address"></div>
+			</div>
+		</div>
+	</div>
+	<div id="myModal" class="modal">
+	 	<div class="modal-content">
+        	<div class="modal-header">
+            	<span class="close">&times;</span>
+            	<h2>Create post</h2>
+       		</div>
+        	<div class="modal-body">
+           	 	<div class="modal-el">
+                	<form>
+                    <label for="pname">Pet name</label><br>
+                    <input type="text" id="pname" name="petname" placeholder="If you want call"><br>
+                    <label for="kind">Kind of pet</label><br>
+                    <select name="kind" id="kind">
+
+					</select><br>
+                   	<label for="breed">Breed</label><br>
+                    <select name="breed" id="breed">
+                    	
+					</select><br>
+                    <label for="address">Address</label><br>
+                    <input type="button" id="addAddress" value="Add address"><br>
+                    <input type="file" id="getFile">
+					<input type="button" value="Send" id="sendFile"><br>
+                    <input type="button" id="btnCreatePet" value="Create">
+                	</form>
+            	</div>
+            	<div id="address" class="modal-el">
+            		<label for="countryName">Country</label><br>
+                    <input type="text" id="countryName" name="countryName" placeholder="Country ..."><br>
+                    <label for="cityName">City</label><br>
+                    <input type="text" id="cityName" name="cityName" placeholder="City ..."><br>
+                    <label for="streetName">Street</label><br>
+                    <input type="text" id="streetName" name="streetName" placeholder="Street ..."><br>
+                    <label for="numOfHouse">House number</label><br>
+                    <input type="text" id="numOfHouse" name="numOfHouse" placeholder="House number ..."><br>
+                    <input  type="button" id="confirmAdr" value="Confirm">
+            	</div>
+        	</div>
+        	<div class="modal-footer">
+            	<h3>Form for new post about pet</h3>
+       		</div>
+    	</div>
+	</div>
+	<script src="script.js"></script>
+	<script>
+		
+		setModalConfiguration();
+		fillKind();
+		
+	</script>
+	
+</body>
+</html>
