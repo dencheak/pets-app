@@ -1,5 +1,6 @@
 package denis.lishchuk.pets.dto.response;
 
+import denis.lishchuk.pets.entity.Role;
 import denis.lishchuk.pets.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,14 +12,16 @@ public class UserResponse {
 
     private String login;
 
-    private String password;
-
     private Long shelterId;
+
+    private Role role;
 
     public UserResponse(User user){
         id = user.getId();
         login = user.getLogin();
-        password = user.getPassword();
-        shelterId = user.getShelter().getId();
+        if(user.getShelter()!=null) {
+            shelterId = user.getShelter().getId();
+        }
+        role = user.getRole();
     }
 }

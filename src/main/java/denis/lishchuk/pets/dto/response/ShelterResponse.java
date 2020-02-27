@@ -19,7 +19,9 @@ public class ShelterResponse {
     public ShelterResponse(Shelter shelter){
         id = shelter.getId();
         name = shelter.getName();
-        userId = shelter.getAdmin().getId();
+        if(shelter.getAdmin()!=null) {
+            userId = shelter.getAdmin().getId();
+        }
         addressId = shelter.getAddress().getId();
     }
 }

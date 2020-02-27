@@ -13,4 +13,5 @@ public class PetRequest {
     @NotNull
     private Long addressId;
 
+    private FileRequest fileRequest;
 }

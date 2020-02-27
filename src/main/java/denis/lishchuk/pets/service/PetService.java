@@ -5,16 +5,15 @@ import denis.lishchuk.pets.dto.request.PetFilterRequest;
 import denis.lishchuk.pets.dto.request.PetRequest;
 import denis.lishchuk.pets.dto.response.DataResponse;
 import denis.lishchuk.pets.dto.response.PetResponse;
-import denis.lishchuk.pets.dto.response.UserResponse;
 import denis.lishchuk.pets.entity.Pet;
 import denis.lishchuk.pets.exception.InputDataException;
 import denis.lishchuk.pets.repository.PetRepository;
 import denis.lishchuk.pets.specification.PetSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,23 +33,22 @@ public class PetService {
     private FileService fileService;
 
 
-    public Pet petRequestToPet(PetRequest petRequest, Pet pet) throws InputDataException {
+    public Pet petRequestToPet(PetRequest petRequest, Pet pet) throws InputDataException, IOException {
         if(pet == null)
             pet = new Pet();
         pet.setName(petRequest.getName());
         pet.setKind(kindService.findOne(petRequest.getKindId()));
         pet.setAddress(addressService.findOne(petRequest.getAddressId()));
-       // pet.setImagePath(fileService.IMG_DIR);
+        String file = fileService.saveFile(petRequest.getFileRequest());
+        pet.setImagePath(file);
         return pet;
     }
 
-    public PetResponse save(PetRequest petRequest) throws InputDataException {
-
+    public PetResponse save(PetRequest petRequest) throws InputDataException, IOException {
         return new PetResponse (petRepository.save(petRequestToPet(petRequest, null)));
-
     }
 
-    public PetResponse update(PetRequest petRequest, Long id)throws InputDataException {
+    public PetResponse update(PetRequest petRequest, Long id) throws InputDataException, IOException {
         Pet pet = findOne(id);
         return new PetResponse(petRepository.save(petRequestToPet(petRequest, pet)));
     }
@@ -69,9 +67,7 @@ public class PetService {
 
     public DataResponse<PetResponse> findAll(PaginationRequest paginationRequest){
         Page<Pet> page = petRepository.findAll(paginationRequest.toPageRequest());
-
         return new DataResponse<>(page.get().map(PetResponse::new).collect(Collectors.toList()), page.getTotalPages(), page.getTotalElements());
-
     }
 
     public DataResponse<PetResponse> findByFilter(PetFilterRequest filterRequest){

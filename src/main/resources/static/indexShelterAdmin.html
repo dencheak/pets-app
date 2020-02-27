@@ -27,6 +27,7 @@
 
 <div class="control">
 	<button id="openModal1" >Create post</button>
+	<button id="openModal2" >Create shelter</button>
 
 
 	<div class="controllers">
@@ -120,39 +121,20 @@
 		</div>
 	</div>
 </div>
-<div id="myModal3" class="modal">
-	<div class="modal-content">
-		<div class="modal-header">
-			<h2>Create kind of pets</h2>
-		</div>
-		<div class="modal-body">
-			<div class="modal-el">
-				<form>
-					<label for="kindName">Kind name</label><br>
-					<input type="text" id="kindName" name="kindName" placeholder="Name of kind"><br>
-					<label for="breedName">Breed name</label><br>
-					<input type="text" id="breedName" name="breedName" placeholder="Name of breed"><br>
-					<input type="button" id="btnCreateKind" value="Create">
-				</form>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<h3>Form for new kind of pets</h3>
-		</div>
-	</div>
 </div>
 <script src="/js/script.js"></script>
 <script>
 	getUser();
 	setTimeout(getPage, 200);
 	function getPage() {
-		if (window.localStorage.getItem('userRole') === "SHELTER_ADMIN") {
-			window.location.href = '/homeShelterAdmin';
-		} else if (window.localStorage.getItem('userRole') === "ADMIN") {
+		if (window.localStorage.getItem('userRole') === "ADMIN") {
 			window.location.href = '/homeAdmin';
+		} else if (window.localStorage.getItem('userRole') === "USER") {
+			window.location.href = '/home';
 		}
 	}
 	setModalConfiguration1();
+	setModalConfiguration2();
 	fillKind();
 	closeModal();
 

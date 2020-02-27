@@ -1,12 +1,8 @@
 package denis.lishchuk.pets.service;
 
 import denis.lishchuk.pets.dto.request.KindRequest;
-import denis.lishchuk.pets.dto.request.UserRequest;
 import denis.lishchuk.pets.dto.response.KindResponse;
-import denis.lishchuk.pets.dto.response.UserResponse;
 import denis.lishchuk.pets.entity.Kind;
-import denis.lishchuk.pets.entity.Pet;
-import denis.lishchuk.pets.entity.User;
 import denis.lishchuk.pets.exception.InputDataException;
 import denis.lishchuk.pets.repository.KindRepository;
 import org.springframework.beans.factory.annotation.Autowired;

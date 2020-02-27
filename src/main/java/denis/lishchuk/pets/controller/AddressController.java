@@ -2,9 +2,7 @@ package denis.lishchuk.pets.controller;
 
 
 import denis.lishchuk.pets.dto.request.AddressRequest;
-import denis.lishchuk.pets.dto.request.UserRequest;
 import denis.lishchuk.pets.dto.response.AddressResponse;
-import denis.lishchuk.pets.dto.response.UserResponse;
 import denis.lishchuk.pets.exception.InputDataException;
 import denis.lishchuk.pets.service.AddressService;
 import lombok.SneakyThrows;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/address")
 public class AddressController {

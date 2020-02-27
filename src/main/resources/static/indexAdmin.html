@@ -27,7 +27,8 @@
 
 <div class="control">
 	<button id="openModal1" >Create post</button>
-
+	<button id="openModal2" >Create shelter</button>
+	<button id="openModal3" >Create kind</button>
 
 	<div class="controllers">
 		<label for="page">Page</label>
@@ -143,16 +144,19 @@
 </div>
 <script src="/js/script.js"></script>
 <script>
+
 	getUser();
 	setTimeout(getPage, 200);
-	function getPage() {
+	function getPage () {
 		if (window.localStorage.getItem('userRole') === "SHELTER_ADMIN") {
 			window.location.href = '/homeShelterAdmin';
-		} else if (window.localStorage.getItem('userRole') === "ADMIN") {
-			window.location.href = '/homeAdmin';
+		} else if (window.localStorage.getItem('userRole') === "USER") {
+			window.location.href = '/home';
 		}
 	}
 	setModalConfiguration1();
+	setModalConfiguration2();
+	setModalConfiguration3();
 	fillKind();
 	closeModal();
 

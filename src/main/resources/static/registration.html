@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/sign.css">
+</head>
+<body>
+
+<div class="form-container">
+    <form autocomplete="off">
+        <input autocomplete="false" name="hidden" type="text" style="display:none;">
+        <div class="input-field col">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="login" type="text" class="validate">
+            <label for="login">Login</label>
+        </div>
+        <div class="input-field col">
+            <i class="material-icons prefix">lock</i>
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+        </div>
+        <!--<div class="input-field col s12">-->
+            <!--<select id="shelter">-->
+                <!--<option value="0" disabled selected>Choose your option</option>-->
+
+            <!--</select>-->
+            <!--<label>Select shelter if you are owner</label>-->
+        <!--</div>-->
+        <label>
+            <input type="checkbox" id="shelterAdmin"/>
+            <span>Are you shelter owner?</span>
+        </label>
+        <div class="controllers">
+            <button class="btn waves-effect waves-light" type="submit" id="sign-up">Sign Up
+                <i class="material-icons right">create</i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+    });
+    let $shelter = $('#shelter');
+
+
+    function setSheltersToSelect(shelters) {
+        for (var i = 0; i < shelters.length; i++) {
+            setShelterToSelect(shelters[i]);
+        }
+    }
+
+    function setShelterToSelect(shelter){
+        let s = $('#shelter');
+        s.append(`
+		<option value="${shelter.id}">${shelter.name}</option>
+	`)
+    }
+
+    let $login = $('#login');
+    let $password = $('#password');
+    let $sh = $("#shelter").val();
+    let $signUp = $('#sign-up');
+
+    $shelter.change(function () {
+        $sh= $("#shelter").val();
+    });
+
+    $signUp.click(function (e) {
+        e.preventDefault();
+        sendTokenRequest('http://localhost:8080/public/register')
+    });
+
+
+    function sendTokenRequest(url) {
+        let check = document.getElementById("shelterAdmin");
+        let req = {
+            login: $login.val(),
+            password: $password.val(),
+            check: check.checked
+        };
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(req),
+            success: function (token) {
+                window.localStorage.setItem('token', `Bearer ${token}`);
+                window.localStorage.setItem('login', req.login);
+                console.log(`Bearer ${token}`);
+                window.location.href = '/home';
+            },
+            error: function (e) {
+                console.log(e);
+                alert("fields are filled incorrectly or this user name is taken");
+            }
+        })
+    }
+</script>
+</body>
+</html>

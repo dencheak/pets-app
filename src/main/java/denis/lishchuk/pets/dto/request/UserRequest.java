@@ -14,6 +14,8 @@ public class UserRequest {
     private String login;
     @NotBlank@NotNull
     private String password;
-    @NotNull
+
+    private boolean check;
+
     private Long shelterId;
 }

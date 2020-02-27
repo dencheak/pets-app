@@ -11,17 +11,16 @@ public class PetResponse {
 
     private String name;
 
-    private Long kindId;
+    private KindResponse kindResponse;
+    private AddressResponse addressResponse;
 
-    private Long addressId;
-
-    //private String imagePath;
+    private String imagePath;
 
     public PetResponse(Pet pet) {
         id = pet.getId();
         name = pet.getName();
-        kindId = pet.getKind().getId();
-        addressId = pet.getAddress().getId();
-        //imagePath = pet.getImagePath();
+        kindResponse = new KindResponse(pet.getKind());
+        addressResponse = new AddressResponse(pet.getAddress());
+        imagePath = pet.getImagePath();
     }
 }

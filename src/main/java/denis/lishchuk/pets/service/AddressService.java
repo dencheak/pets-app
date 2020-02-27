@@ -16,20 +16,8 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-
-    public Address addressRequestToAddress(AddressRequest addressRequest, Address address){
-        if(address == null)
-            address = new Address();
-        address.setCountry(addressRequest.getCountry());
-        address.setCity(addressRequest.getCity());
-        address.setStreet(addressRequest.getStreet());
-        address.setNumberOfHouse(addressRequest.getNumberOfHouse());
-        return address;
-    }
     public AddressResponse save(AddressRequest addressRequest) {
-
         return new AddressResponse (addressRepository.save(addressRequestToAddress(addressRequest, null)));
-
     }
 
     public AddressResponse update(AddressRequest addressRequest, Long id)throws InputDataException {
@@ -38,7 +26,7 @@ public class AddressService {
     }
 
     public Address findOne(Long id)throws InputDataException {
-        return addressRepository.findById(id).orElseThrow(() -> new InputDataException("User with id" + id + "not exists"));
+        return addressRepository.findById(id).orElseThrow(() -> new InputDataException("Address with id" + id + "not exists"));
     }
 
     public List<AddressResponse> findAll(){
@@ -49,5 +37,14 @@ public class AddressService {
         addressRepository.delete(findOne(id));
     }
 
+    private Address addressRequestToAddress(AddressRequest addressRequest, Address address){
+        if(address == null)
+            address = new Address();
+        address.setCountry(addressRequest.getCountry());
+        address.setCity(addressRequest.getCity());
+        address.setStreet(addressRequest.getStreet());
+        address.setNumberOfHouse(addressRequest.getNumberOfHouse());
+        return address;
+    }
 
 }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/sign.css">
+</head>
+<body>
+
+<div class="form-container">
+    <form autocomplete="off">
+        <input autocomplete="false" name="hidden" type="text" style="display:none;">
+        <div class="input-field col">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="login" type="text" class="validate">
+            <label for="login">Login</label>
+        </div>
+        <div class="input-field col">
+            <i class="material-icons prefix">lock</i>
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+        </div>
+        <div class="controllers">
+            <button class="btn waves-effect waves-light" type="submit" id="sign-in">Sign In
+                <i class="material-icons right">done</i>
+            </button>
+            <button class="btn waves-effect waves-light" type="submit" id="sign-up">Sign Up
+                <i class="material-icons right">create</i>
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    let $login = $('#login');
+    let $password = $('#password');
+    let $signUp = $('#sign-up');
+    let $signIn = $('#sign-in');
+
+    $signUp.click(function (e) {
+        e.preventDefault();
+        window.location.href ='/registration';
+    });
+
+    $signIn.click(function (e) {
+        e.preventDefault();
+        sendTokenRequest('http://localhost:8080/public/login')
+    });
+
+    function sendTokenRequest(url) {
+        let req = {
+            login: $login.val(),
+            password: $password.val()
+        };
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(req),
+            success: function (token) {
+                window.localStorage.setItem('token', `Bearer ${token}`);
+                window.localStorage.setItem('login', req.login);
+                //window.localStorage.setItem('userId', );
+                console.log(`Bearer ${token}`)
+                window.location.href = '/home';
+            },
+            error: function (e) {
+                console.log(e);
+                alert("fields are filled incorrectly");
+            }
+        })
+    }
+</script>
+</body>
+</html>

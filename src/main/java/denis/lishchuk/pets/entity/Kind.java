@@ -18,7 +18,7 @@ public class Kind {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-@Column(nullable = false)
+    @Column(nullable = false)
     private String name;
 
     private String breed;

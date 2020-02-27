@@ -3,11 +3,8 @@ package denis.lishchuk.pets.controller;
 import denis.lishchuk.pets.dto.request.PaginationRequest;
 import denis.lishchuk.pets.dto.request.PetFilterRequest;
 import denis.lishchuk.pets.dto.request.PetRequest;
-import denis.lishchuk.pets.dto.request.UserRequest;
 import denis.lishchuk.pets.dto.response.DataResponse;
 import denis.lishchuk.pets.dto.response.PetResponse;
-import denis.lishchuk.pets.dto.response.UserResponse;
-import denis.lishchuk.pets.entity.Pet;
 import denis.lishchuk.pets.exception.InputDataException;
 import denis.lishchuk.pets.service.PetService;
 import lombok.SneakyThrows;
@@ -15,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -31,7 +29,7 @@ public class PetController {
     }
 
     @PostMapping
-    public PetResponse save(@RequestBody @Valid PetRequest petRequest) throws InputDataException {
+    public PetResponse save(@RequestBody @Valid PetRequest petRequest) throws InputDataException, IOException {
         return petService.save(petRequest);
     }
 
@@ -46,7 +44,7 @@ public class PetController {
     }
 
     @PutMapping
-    public PetResponse update(@RequestParam Long id, @RequestBody PetRequest petRequest) throws InputDataException {
+    public PetResponse update(@RequestParam Long id, @RequestBody PetRequest petRequest) throws InputDataException, IOException {
         return petService.update(petRequest, id);
     }
 

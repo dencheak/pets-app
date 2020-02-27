@@ -25,7 +25,6 @@ public class Pet {
     @ManyToOne
     private Address address;
 
-    @Column(nullable = false)
     private String imagePath;
 }
 

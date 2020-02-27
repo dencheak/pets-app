@@ -33,7 +33,9 @@ public class ShelterService {
 
 
     public Shelter shelterRequestToShelter(ShelterRequest shelterRequest, Shelter shelter) throws InputDataException {
-        if(shelter == null)
+        if(shelter == null && userService.findOne(shelterRequest.getUserId()).getShelter() != null)
+            throw new InputDataException("you already have a shelter");
+        if(shelter==null)
             shelter = new Shelter();
         shelter.setName(shelterRequest.getName());
         shelter.setAdmin(userService.findOne(shelterRequest.getUserId()));
